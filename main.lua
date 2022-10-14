@@ -3512,13 +3512,6 @@ task.spawn(function()
                         clickEvent:FireServer()
                     end
                 end
-                if macrov2.vars.autodigmode == "Collector Steal" then
-                    local onnet = game.Workspace.NPCs.Onett.Onett["Porcelain Dipper"]:FindFirstChild("ClickEvent")
-                    if onnet then
-                        task.wait()
-                        onnet:FireServer()
-                    end
-                end
             end
         end
     end
