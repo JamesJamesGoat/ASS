@@ -288,7 +288,6 @@ local buffTable = {
     ["Glue"] = {b = false, DecalID = "2504978518"},
     ["Glitter"] = {b = false, DecalID = "2542899798"},
     ["Tropical Drink"] = {b = false, DecalID = "3835877932"}
-    ["Jelly Beans"]={b=false,DecalID="3080740120"};
 }
 local AccessoryTypes = require(game:GetService("ReplicatedStorage").Accessories).GetTypes()
 local MasksTable = {}
