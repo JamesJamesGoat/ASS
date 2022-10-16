@@ -2026,7 +2026,7 @@ function formatString(Planter, Field, Nectar)
 end
 
 local Config = {
-    WindowName = "Macro v2 v" .. temptable.version .. " Made By Nigger",
+    WindowName = "Assmoc Made By spongecaveman2",
     Color = Color3.fromRGB(255, 1, 1),
     Keybind = Enum.KeyCode.LeftAlt
 }
@@ -2053,7 +2053,7 @@ information:CreateLabel("Script version: " .. temptable.version)
 information:CreateLabel(Danger.." - Not Safe Function")
 information:CreateLabel("⚙ - Configurable Function")
 information:CreateLabel("📜 - May be exploit specific")
-information:CreateLabel("edit by: NiggerNigger")
+information:CreateLabel("edit by: spongecaveman2")
 local gainedhoneylabel = information:CreateLabel("Gained Honey: 0")
 local uptimelabel = information:CreateLabel("Uptime: 0")
 information:CreateButton("Discord Invite", function()
