@@ -2026,8 +2026,8 @@ function formatString(Planter, Field, Nectar)
 end
 
 local Config = {
-    WindowName = "Macro v2 v" .. temptable.version .. " Made By Narnia",
-    Color = Color3.fromRGB(39, 133, 11),
+    WindowName = "Macro v2 v" .. temptable.version .. " Made By Nigger",
+    Color = Color3.fromRGB(0, 0, 255),
     Keybind = Enum.KeyCode.LeftAlt
 }
 local Window = library:CreateWindow(Config, game:GetService("CoreGui"))
