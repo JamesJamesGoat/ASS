@@ -56,15 +56,6 @@ function maskequip(mask)
     })
 end
 
-function equiptool(tool)
-    if rtsg()["EquippedCollector"] == tool then return end
-    game.ReplicatedStorage.Events.ItemPackageEvent:InvokeServer("Equip", {
-        Mute = true,
-        Type = tool,
-        Category = "Collector"
-    })
-end
-
 local lasttouched = nil
 local lastfieldpos = nil
 local hi = false
@@ -181,13 +172,11 @@ getgenv().temptable = {
         end
     end,
     runningfor = 0,
-    oldtool = rtsg()["EquippedCollector"],
     ["gacf"] = function(part, st)
         coordd = CFrame.new(part.Position.X, part.Position.Y + st, part.Position.Z)
         return coordd
     end,
     lookat = nil,
-    currtool = rtsg()["EquippedCollector"],
     starttime = tick(),
     planting = false,
     crosshaircounter = 0,
@@ -245,11 +234,6 @@ end
 local masktable = {}
 for _, v in next, game:GetService("ReplicatedStorage").Accessories:GetChildren() do
     if string.match(v.Name, "Mask") then table.insert(masktable, v.Name) end
-end
-local collectorstable = {}
-for _, v in next, getupvalues(
-                require(game:GetService("ReplicatedStorage").Collectors).Exists) do
-    for e, r in next, v do table.insert(collectorstable, e) end
 end
 local fieldstable = {}
 for _, v in next, game.Workspace.FlowerZones:GetChildren() do
@@ -321,7 +305,6 @@ table.sort(toystable)
 table.sort(spawnerstable)
 table.sort(masktable)
 table.sort(temptable.allplanters)
-table.sort(collectorstable)
 table.sort(donatableItemsTable)
 table.sort(buffTable)
 table.sort(MasksTable)
@@ -422,7 +405,6 @@ getgenv().macrov2 = {
         collectcrosshairs = false,
         farmpuffshrooms = false,
         tptonpc = false,
-        donotfarmtokens = false,
         convertballoons = false,
         autostockings = false,
         autosamovar = false,
@@ -477,8 +459,6 @@ getgenv().macrov2 = {
         ["autouseGlitter"] = false,
         ["autouseTropical Drink"] = false,
         usegumdropsforquest = false,
-        autox4 = false,
-        newtokencollection = false,
     },
     vars = {
         field = "Ant Field",
@@ -1105,10 +1085,6 @@ function farmant()
     antpart.CanCollide = true
     temptable.started.ant = true
     local anttable = {left = true, right = false}
-    temptable.oldtool = rtsg()["EquippedCollector"]
-    if temptable.oldtool ~= "Tide Popper" then
-        equiptool("Spark Staff")
-    end
     local oldmask = rtsg()["EquippedAccessories"]["Hat"]
     maskequip("Demon Mask")
     game.ReplicatedStorage.Events.ToyEvent:FireServer("Ant Challenge")
@@ -2161,7 +2137,6 @@ guiElements["toggles"]["farmclouds"] = farmo:CreateToggle("Farm Under Clouds", n
 farmo:CreateLabel("")
 guiElements["toggles"]["honeymaskconv"] = farmo:CreateToggle("Auto Honey Mask", nil, function(bool) macrov2.toggles.honeymaskconv = bool end)
 guiElements["vars"]["defmask"] = farmo:CreateDropdown("Default Mask", MasksTable, function(val) macrov2.vars.defmask = val end)
-guiElements["vars"]["deftool"] = farmo:CreateDropdown("Default Tool", collectorstable, function(val) macrov2.vars.deftool = val end)
 guiElements["toggles"]["autoequipmask"] = farmo:CreateToggle("Equip Mask Based on Field", nil, function(bool) macrov2.toggles.autoequipmask = bool end)
 guiElements["toggles"]["followplayer"] = farmo:CreateToggle("Follow Player", nil, function(bool)
     macrov2.toggles.followplayer = bool
@@ -2502,9 +2477,7 @@ end)
 misco:CreateDropdown("Equip Masks", masktable, function(Option)
     maskequip(Option)
 end)
-misco:CreateDropdown("Equip Collectors", collectorstable, function(Option)
-    equiptool(Option)
-end)
+
 misco:CreateDropdown("Generate Amulet", {
     "Supreme Star Amulet", "Diamond Star Amulet", "Gold Star Amulet",
     "Silver Star Amulet", "Bronze Star Amulet", "Moon Amulet"
@@ -2609,9 +2582,6 @@ end)
 guiElements["toggles"]["loopfarmspeed"] = farmsettings:CreateToggle("^ Loop Speed On Autofarming", nil, function(State)
     macrov2.toggles.loopfarmspeed = State
 end)
-guiElements["toggles"]["farmflower"] = farmsettings:CreateToggle("Don't Walk In Field", nil, function(State)
-    macrov2.toggles.farmflower = State
-end)
 guiElements["toggles"]["convertballoons"] = farmsettings:CreateToggle("Convert Hive Balloon", nil, function(State)
     macrov2.toggles.convertballoons = State
 end)
@@ -2620,9 +2590,6 @@ local balloonPercentSlider = farmsettings:CreateSlider("Balloon Blessing % To Co
 end)
 balloonPercentSlider:AddToolTip("0% = Always convert balloon when converting bag")
 guiElements["vars"]["convertballoonpercent"] = balloonPercentSlider
-guiElements["toggles"]["donotfarmtokens"] = farmsettings:CreateToggle("Don't Farm Tokens", nil, function(State)
-    macrov2.toggles.donotfarmtokens = State
-end)
 guiElements["toggles"]["enabletokenblacklisting"] = farmsettings:CreateToggle("Enable Token Blacklisting", nil, function(State)
     macrov2.toggles.enabletokenblacklisting = State
 end)
@@ -2631,12 +2598,6 @@ guiElements["vars"]["walkspeed"] = farmsettings:CreateSlider("Walk Speed", 0, 12
 end)
 guiElements["vars"]["jumppower"] = farmsettings:CreateSlider("Jump Power", 0, 120, 70, false, function(Value)
     macrov2.vars.jumppower = Value
-end)
-guiElements["toggles"]["autox4"] = farmsettings:CreateToggle("Auto x4 Field Boost", nil, function(State)
-    macrov2.toggles.autox4 = State
-end)
-guiElements["toggles"]["newtokencollection"] = farmsettings:CreateToggle("New Token Collection", nil, function(State)
-    macrov2.toggles.newtokencollection = State
 end)
 local raresettings = setttab:CreateSection("Tokens Settings")
 raresettings:CreateTextBox("Asset ID", "rbxassetid", false, function(Value)
@@ -2674,6 +2635,53 @@ raresettings:CreateButton("Copy Token List Link", function()
     api.notify("Macro v2 " .. temptable.version, "Copied link to clipboard!", 2)
     setclipboard("https://pastebin.com/raw/wtHBD3ij")
 end)
+
+local macrov2s = setttab:CreateSection("Configs")
+macrov2s:CreateTextBox("Config Name", "ex: stumpconfig", false, function(Value) temptable.configname = Value end)
+macrov2s:CreateButton("Load Config", function()
+    if not isfile("macrov2/BSS_" .. temptable.configname .. ".json") then
+        api.notify("Macro v2 " .. temptable.version, "No such config file!", 2)
+    else
+        macrov2 = game:service("HttpService"):JSONDecode(readfile("macrov2/BSS_" .. temptable.configname .. ".json"))
+        for i,v in pairs(guiElements) do
+            for j,k in pairs(v) do
+                local obj = k:GetObject()
+                local lastCharacters = obj.Name:reverse():sub(0, obj.Name:reverse():find(" ")):reverse()
+                if macrov2[i][j] then
+                    if lastCharacters == " Dropdown" then
+                        obj.Container.Value.Text = macrov2[i][j]
+                    elseif lastCharacters == " Slider" then
+                        task.spawn(function()
+                            local Tween = game:GetService("TweenService"):Create(
+                                obj.Slider.Bar,
+                                TweenInfo.new(1),
+                                {Size = UDim2.new((tonumber(macrov2[i][j]) - k:GetMin()) / (k:GetMax() - k:GetMin()), 0, 1, 0)}
+                            )
+                            Tween:Play()
+                            local startStamp = tick()
+                            local startValue = tonumber(obj.Value.PlaceholderText)
+                            while tick() - startStamp < 1 do
+                                task.wait()
+                                local partial = tick() - startStamp
+                                local value = (startValue + ((tonumber(macrov2[i][j]) - startValue) * partial))
+                                obj.Value.PlaceholderText = math.round(value * 100) / 100
+                            end
+                            obj.Value.PlaceholderText = tonumber(macrov2[i][j])
+                        end)
+                    elseif lastCharacters == " Toggle" then
+                        obj.Toggle.BackgroundColor3 = macrov2[i][j] and Config.Color or Color3.fromRGB(50,50,50)
+                    elseif lastCharacters == " TextBox" then
+                        obj.Background.Input.Text = macrov2[i][j]
+                    end
+                end
+            end
+        end
+    end
+end)
+macrov2s:CreateButton("Save Config", function()
+    writefile("macrov2/BSS_" .. temptable.configname .. ".json", game:service("HttpService"):JSONEncode(macrov2))
+end)
+macrov2s:CreateButton("Reset Config", function() macrov2 = defaultmacrov2 end)
 local dispsettings = setttab:CreateSection("Auto Dispenser & Auto Boosters Settings")
 guiElements["dispensesettings"]["rj"] = dispsettings:CreateToggle("Royal Jelly Dispenser", nil, function(State)
     macrov2.dispensesettings.rj = not macrov2.dispensesettings.rj
@@ -2734,52 +2742,6 @@ local themes = guisettings:CreateDropdown("Image", {
     end
 end)
 themes:SetOption("Default")
-local macrov2s = setttab:CreateSection("Configs")
-macrov2s:CreateTextBox("Config Name", "ex: stumpconfig", false, function(Value) temptable.configname = Value end)
-macrov2s:CreateButton("Load Config", function()
-    if not isfile("macrov2/BSS_" .. temptable.configname .. ".json") then
-        api.notify("Macro v2 " .. temptable.version, "No such config file!", 2)
-    else
-        macrov2 = game:service("HttpService"):JSONDecode(readfile("macrov2/BSS_" .. temptable.configname .. ".json"))
-        for i,v in pairs(guiElements) do
-            for j,k in pairs(v) do
-                local obj = k:GetObject()
-                local lastCharacters = obj.Name:reverse():sub(0, obj.Name:reverse():find(" ")):reverse()
-                if macrov2[i][j] then
-                    if lastCharacters == " Dropdown" then
-                        obj.Container.Value.Text = macrov2[i][j]
-                    elseif lastCharacters == " Slider" then
-                        task.spawn(function()
-                            local Tween = game:GetService("TweenService"):Create(
-                                obj.Slider.Bar,
-                                TweenInfo.new(1),
-                                {Size = UDim2.new((tonumber(macrov2[i][j]) - k:GetMin()) / (k:GetMax() - k:GetMin()), 0, 1, 0)}
-                            )
-                            Tween:Play()
-                            local startStamp = tick()
-                            local startValue = tonumber(obj.Value.PlaceholderText)
-                            while tick() - startStamp < 1 do
-                                task.wait()
-                                local partial = tick() - startStamp
-                                local value = (startValue + ((tonumber(macrov2[i][j]) - startValue) * partial))
-                                obj.Value.PlaceholderText = math.round(value * 100) / 100
-                            end
-                            obj.Value.PlaceholderText = tonumber(macrov2[i][j])
-                        end)
-                    elseif lastCharacters == " Toggle" then
-                        obj.Toggle.BackgroundColor3 = macrov2[i][j] and Config.Color or Color3.fromRGB(50,50,50)
-                    elseif lastCharacters == " TextBox" then
-                        obj.Background.Input.Text = macrov2[i][j]
-                    end
-                end
-            end
-        end
-    end
-end)
-macrov2s:CreateButton("Save Config", function()
-    writefile("macrov2/BSS_" .. temptable.configname .. ".json", game:service("HttpService"):JSONEncode(macrov2))
-end)
-macrov2s:CreateButton("Reset Config", function() macrov2 = defaultmacrov2 end)
 local fieldsettings = setttab:CreateSection("Fields Settings")
 guiElements["bestfields"]["white"] = fieldsettings:CreateDropdown("Best White Field", temptable.whitefields, function(Option)
     macrov2.bestfields.white = Option
@@ -3298,17 +3260,11 @@ task.spawn(function()
                         if macrov2.toggles.farmunderballoons then
                             getballoons()
                         end
-                        if not macrov2.toggles.donotfarmtokens then
-                            gettoken(nil, macrov2.toggles.newtokencollection)
-                        end
                         if not macrov2.toggles.farmflower then
                             getflower()
                         end
                         if macrov2.toggles.farmpuffshrooms and game.Workspace.Happenings.Puffshrooms:FindFirstChildOfClass("Model") then
                             getpuff()
-                        end
-                        if macrov2.toggles.autox4 then
-                            doautox4()
                         end
                         if temptable.usegumdropsforquest and macrov2.toggles.usegumdropsforquest and tick() - temptable.lastgumdropuse > 3 then
                             temptable.lastgumdropuse = tick()
@@ -3821,12 +3777,6 @@ task.spawn(function()
                 temptable.running = false
             end
         end
-    end
-end)
-
-task.spawn(function()
-    while task.wait(1) do
-        temptable.currtool = rtsg()["EquippedCollector"]
     end
 end)
 
