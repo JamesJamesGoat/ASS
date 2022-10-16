@@ -2045,7 +2045,7 @@ end
 local Config = {
     WindowName = "Macro v2 v" .. temptable.version .. " Made By Narnia",
     Color = Color3.fromRGB(39, 133, 11),
-    Keybind = Enum.KeyCode.Semicolon
+    Keybind = Enum.KeyCode.LeftAlt
 }
 local Window = library:CreateWindow(Config, game:GetService("CoreGui"))
 
@@ -2103,7 +2103,7 @@ local autofarmtoggle = farmo:CreateToggle("Autofarm [⚙]", nil, function(State)
     macrov2.toggles.autofarm = State
 end)
 guiElements["toggles"]["autofarm"] = autofarmtoggle
-autofarmtoggle:CreateKeybind("U", function(Key) end)
+autofarmtoggle:CreateKeybind("", function(Key) end)
 guiElements["toggles"]["autodig"] = farmo:CreateToggle("Autodig", nil, function(State)
     macrov2.toggles.autodig = State
 end)
@@ -2596,7 +2596,7 @@ end)
 guiElements["vars"]["walkspeed"] = farmsettings:CreateSlider("Walk Speed", 0, 120, 70, false, function(Value)
     macrov2.vars.walkspeed = Value
 end)
-guiElements["vars"]["jumppower"] = farmsettings:CreateSlider("Jump Power", 0, 120, 70, false, function(Value)
+guiElements["vars"]["jumppower"] = farmsettings:CreateSlider("Jump Power", 0, 200, 80, false, function(Value)
     macrov2.vars.jumppower = Value
 end)
 local raresettings = setttab:CreateSection("Tokens Settings")
