@@ -253,7 +253,8 @@ local buffTable = {
     ["Enzymes"] = {b = false, DecalID = "2584584968"},
     ["Glue"] = {b = false, DecalID = "2504978518"},
     ["Glitter"] = {b = false, DecalID = "2542899798"},
-    ["Tropical Drink"] = {b = false, DecalID = "3835877932"}
+    ["Tropical Drink"] = {b = false, DecalID = "3835877932"},
+    ["Jelly Bean"] = {b = false, DecalID = "3080740120"}
 }
 local AccessoryTypes = require(game:GetService("ReplicatedStorage").Accessories).GetTypes()
 local MasksTable = {}
@@ -4308,6 +4309,7 @@ for i, v in next, workspace.Decorations.Misc:GetDescendants() do
     end
 end
 
+-- for alt manager app
 pcall(function()
 	Nexus_Version = 101
 	loadstring(game:HttpGet'https://raw.githubusercontent.com/ic3w0lf22/Roblox-Account-Manager/master/RBX%20Alt%20Manager/Nexus/Nexus.lua')()
