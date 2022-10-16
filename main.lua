@@ -15,24 +15,6 @@ if not isfolder("macrov2") then makefolder("macrov2") end
 if not isfolder("macrov2/plantercache") then makefolder("macrov2/plantercache") end
 
 
--- antifreeze
-
-local AntiFreeze;
-AntiFreeze = hookmetamethod(game, "__namecall", newcclosure(function(Self, ...)
-    local GNM = getnamecallmethod()
-    local Arguments = {...}
-
-    if Self.Name == "Init" and Self.ClassName == "BindableFunction" and GNM == "Invoke" then
-        -- Just to see what arguments get passed (if there are any)
-        table.foreach(Arguments, function(_, Data)
-            print(Data)
-        end)
-        return
-    end
-
-    return AntiFreeze(Self, ...)
-end))
-
 -- Script temporary variables
 local player = game.Players.LocalPlayer
 local playerstatsevent = game:GetService("ReplicatedStorage").Events.RetrievePlayerStats
@@ -2070,10 +2052,7 @@ information:CreateLabel("Script version: " .. temptable.version)
 information:CreateLabel(Danger.." - Not Safe Function")
 information:CreateLabel("⚙ - Configurable Function")
 information:CreateLabel("📜 - May be exploit specific")
-information:CreateLabel("v5 Dev: Narnia#3457")
-information:CreateLabel("v4 by RoseGold#5441")
-information:CreateLabel("Script by Boxking776")
-information:CreateLabel("Originally by weuz_ and mrdevl")
+information:CreateLabel("edit by: NiggerNigger")
 local gainedhoneylabel = information:CreateLabel("Gained Honey: 0")
 local uptimelabel = information:CreateLabel("Uptime: 0")
 information:CreateButton("Discord Invite", function()
