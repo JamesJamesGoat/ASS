@@ -2027,7 +2027,7 @@ end
 
 local Config = {
     WindowName = "Macro v2 v" .. temptable.version .. " Made By Nigger",
-    Color = Color3.fromRGB(255, 000, 000),
+    Color = Color3.fromRGB(255, 1, 1),
     Keybind = Enum.KeyCode.LeftAlt
 }
 local Window = library:CreateWindow(Config, game:GetService("CoreGui"))
