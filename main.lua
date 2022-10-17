@@ -3800,6 +3800,8 @@ task.spawn(function()
     end
 end)
 
+-- face middle function
+
 task.spawn(function()
     while task.wait() do
         local torso = player.Character:FindFirstChild("UpperTorso")
