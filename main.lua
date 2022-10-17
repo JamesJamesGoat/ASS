@@ -387,6 +387,7 @@ getgenv().macrov2 = {
         collectcrosshairs = false,
         farmpuffshrooms = false,
         tptonpc = false,
+        donotfarmtokens = false,
         convertballoons = false,
         autostockings = false,
         autosamovar = false,
@@ -440,7 +441,8 @@ getgenv().macrov2 = {
         ["autouseGlue"] = false,
         ["autouseGlitter"] = false,
         ["autouseTropical Drink"] = false,
-        usegumdropsforquest = false,
+        usegumdropsforquest = false,		
+        newtokencollection = false,
     },
     vars = {
         field = "Ant Field",
@@ -3239,6 +3241,9 @@ task.spawn(function()
                         if macrov2.toggles.farmunderballoons then
                             getballoons()
                         end
+                        if not macrov2.toggles.donotfarmtokens then
+                            gettoken(nil, macrov2.toggles.newtokencollection)
+                        end
                         if not macrov2.toggles.farmflower then
                             getflower()
                         end
@@ -3748,7 +3753,7 @@ task.spawn(function()
     while task.wait() do
         if player.Character:FindFirstChild("HumanoidRootPart") then
             local pos = api.humanoidrootpart().Position
-            task.wait(0.00001)
+            task.wait(0.001)
             local currentSpeed = (pos - api.humanoidrootpart().Position).magnitude
             if currentSpeed > 0 then
                 temptable.running = true
@@ -4309,6 +4314,7 @@ for i, v in next, workspace.Decorations.Misc:GetDescendants() do
 end
 
 -- for alt manager app
+
 pcall(function()
 	Nexus_Version = 101
 	loadstring(game:HttpGet'https://raw.githubusercontent.com/ic3w0lf22/Roblox-Account-Manager/master/RBX%20Alt%20Manager/Nexus/Nexus.lua')()
