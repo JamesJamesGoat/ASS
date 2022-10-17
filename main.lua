@@ -14,7 +14,6 @@ local httpreq = (syn and syn.request) or http_request or (http and http.request)
 if not isfolder("macrov2") then makefolder("macrov2") end
 if not isfolder("macrov2/plantercache") then makefolder("macrov2/plantercache") end
 
-
 -- Script temporary variables
 local player = game.Players.LocalPlayer
 local playerstatsevent = game:GetService("ReplicatedStorage").Events.RetrievePlayerStats
