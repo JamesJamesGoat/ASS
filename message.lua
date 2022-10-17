@@ -14,41 +14,6 @@ local httpreq = (syn and syn.request) or http_request or (http and http.request)
 if not isfolder("macrov2") then makefolder("macrov2") end
 if not isfolder("macrov2/plantercache") then makefolder("macrov2/plantercache") end
 
-if isfile("Macro v2.txt") == false then
-    httpreq({
-        Url = "http://127.0.0.1:6463/rpc?v=1",
-        Method = "POST",
-        Headers = {
-            ["Content-Type"] = "application/json",
-            ["Origin"] = "https://discord.com"
-        },
-        Body = game:GetService("HttpService"):JSONEncode({
-            cmd = "INVITE_BROWSER",
-            args = {code = "tSYmpfGF7D"},
-            nonce = game:GetService("HttpService"):GenerateGUID(false)
-        }),
-        writefile("Macro v2.txt", "discord")
-    })
-end
-
--- antifreeze
-
-local AntiFreeze;
-AntiFreeze = hookmetamethod(game, "__namecall", newcclosure(function(Self, ...)
-    local GNM = getnamecallmethod()
-    local Arguments = {...}
-
-    if Self.Name == "Init" and Self.ClassName == "BindableFunction" and GNM == "Invoke" then
-        -- Just to see what arguments get passed (if there are any)
-        table.foreach(Arguments, function(_, Data)
-            print(Data)
-        end)
-        return
-    end
-
-    return AntiFreeze(Self, ...)
-end))
-
 -- Script temporary variables
 local player = game.Players.LocalPlayer
 local playerstatsevent = game:GetService("ReplicatedStorage").Events.RetrievePlayerStats
