@@ -2580,6 +2580,12 @@ end)
 guiElements["vars"]["jumppower"] = farmsettings:CreateSlider("Jump Power", 0, 200, 80, false, function(Value)
     macrov2.vars.jumppower = Value
 end)
+guiElements["toggles"]["autox4"] = farmsettings:CreateToggle("Auto x4 Field Boost", nil, function(State)
+    macrov2.toggles.autox4 = State
+end)
+guiElements["toggles"]["newtokencollection"] = farmsettings:CreateToggle("New Token Collection", nil, function(State)
+    macrov2.toggles.newtokencollection = State
+end)
 local raresettings = setttab:CreateSection("Tokens Settings")
 raresettings:CreateTextBox("Asset ID", "rbxassetid", false, function(Value)
     rarename = Value
