@@ -37,6 +37,15 @@ function maskequip(mask)
     })
 end
 
+function equiptool(tool)
+    if rtsg()["EquippedCollector"] == tool then return end
+    game.ReplicatedStorage.Events.ItemPackageEvent:InvokeServer("Equip", {
+        Mute = true,
+        Type = tool,
+        Category = "Collector"
+    })
+end
+
 local lasttouched = nil
 local lastfieldpos = nil
 local hi = false
@@ -153,11 +162,13 @@ getgenv().temptable = {
         end
     end,
     runningfor = 0,
+    oldtool = rtsg()["EquippedCollector"],
     ["gacf"] = function(part, st)
         coordd = CFrame.new(part.Position.X, part.Position.Y + st, part.Position.Z)
         return coordd
     end,
     lookat = nil,
+    currtool = rtsg()["EquippedCollector"],
     starttime = tick(),
     planting = false,
     crosshaircounter = 0,
@@ -215,6 +226,11 @@ end
 local masktable = {}
 for _, v in next, game:GetService("ReplicatedStorage").Accessories:GetChildren() do
     if string.match(v.Name, "Mask") then table.insert(masktable, v.Name) end
+end
+local collectorstable = {}
+for _, v in next, getupvalues(
+                require(game:GetService("ReplicatedStorage").Collectors).Exists) do
+    for e, r in next, v do table.insert(collectorstable, e) end
 end
 local fieldstable = {}
 for _, v in next, game.Workspace.FlowerZones:GetChildren() do
@@ -287,6 +303,7 @@ table.sort(toystable)
 table.sort(spawnerstable)
 table.sort(masktable)
 table.sort(temptable.allplanters)
+table.sort(collectorstable)
 table.sort(donatableItemsTable)
 table.sort(buffTable)
 table.sort(MasksTable)
@@ -1069,6 +1086,10 @@ function farmant()
     antpart.CanCollide = true
     temptable.started.ant = true
     local anttable = {left = true, right = false}
+    temptable.oldtool = rtsg()["EquippedCollector"]
+    if temptable.oldtool ~= "Tide Popper" then
+        equiptool("Spark Staff")
+    end
     local oldmask = rtsg()["EquippedAccessories"]["Hat"]
     maskequip("Demon Mask")
     game.ReplicatedStorage.Events.ToyEvent:FireServer("Ant Challenge")
@@ -2118,6 +2139,7 @@ guiElements["toggles"]["farmclouds"] = farmo:CreateToggle("Farm Under Clouds", n
 farmo:CreateLabel("")
 guiElements["toggles"]["honeymaskconv"] = farmo:CreateToggle("Auto Honey Mask", nil, function(bool) macrov2.toggles.honeymaskconv = bool end)
 guiElements["vars"]["defmask"] = farmo:CreateDropdown("Default Mask", MasksTable, function(val) macrov2.vars.defmask = val end)
+guiElements["vars"]["deftool"] = farmo:CreateDropdown("Default Tool", collectorstable, function(val) macrov2.vars.deftool = val end)
 guiElements["toggles"]["autoequipmask"] = farmo:CreateToggle("Equip Mask Based on Field", nil, function(bool) macrov2.toggles.autoequipmask = bool end)
 guiElements["toggles"]["followplayer"] = farmo:CreateToggle("Follow Player", nil, function(bool)
     macrov2.toggles.followplayer = bool
@@ -2458,7 +2480,9 @@ end)
 misco:CreateDropdown("Equip Masks", masktable, function(Option)
     maskequip(Option)
 end)
-
+misco:CreateDropdown("Equip Collectors", collectorstable, function(Option)
+    equiptool(Option)
+end)
 misco:CreateDropdown("Generate Amulet", {
     "Supreme Star Amulet", "Diamond Star Amulet", "Gold Star Amulet",
     "Silver Star Amulet", "Bronze Star Amulet", "Moon Amulet"
@@ -3767,6 +3791,12 @@ task.spawn(function()
                 temptable.running = false
             end
         end
+    end
+end)
+
+task.spawn(function()
+    while task.wait(1) do
+        temptable.currtool = rtsg()["EquippedCollector"]
     end
 end)
 
