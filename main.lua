@@ -340,8 +340,9 @@ local mondopad = Instance.new("Part", game.Workspace)
 mondopad.Name = "Mondo Part"
 mondopad.Anchored = true
 mondopad.Transparency = 1
-mondopad.Size = Vector3.new(10, 1, 10)
-mondopad.Position = Vector3.new(76.8657761,215.084152,-163.525879)
+mondopad.CanCollide = false
+mondopad.Size = Vector3.new(20, 1, 20)
+mondopad.Position = Vector3.new(77, 160, -167)
 
 -- antfarm
 
@@ -3218,27 +3219,23 @@ task.spawn(function()
                             end
                         end
                         temptable.started.crab = false
-                        if macrov2.toggles.killmondo then
+			if macrov2.toggles.killmondo then
                             while macrov2.toggles.killmondo and game.Workspace.Monsters:FindFirstChild("Mondo Chick (Lvl 8)") and not temptable.started.vicious and not temptable.started.monsters do
                                 temptable.started.mondo = true
                                 while game.Workspace.Monsters:FindFirstChild("Mondo Chick (Lvl 8)") do
                                     disableall()
                                     game.Workspace.Map.Ground.HighBlock.CanCollide = false
                                     mondopition = game.Workspace.Monsters["Mondo Chick (Lvl 8)"].Head.Position
-                                    api.tween(3, CFrame.new(
-                                        mondopition.x,
-                                        mondopition.y + 40,
-                                        mondopition.z)
-                                    )
+                                    api.tween(3, CFrame.new(77, 160, -167))
                                     task.wait(1)
-                                    temptable.float = true
+                                    temptable.float = false -- float bad
                                 end
-                                task.wait(.5)
-                                game.Workspace.Map.Ground.HighBlock.CanCollide = true
-                                temptable.float = false
-                                task.wait(1)
-                                enableall()
-                                api.tween(3, fieldpos)
+                                task.wait(.5) game:GetService("Workspace").Map.Ground.HighBlock.CanCollide = true temptable.float = false api.tween(.5, CFrame.new(77, 177, -167)) task.wait(1)
+                                for i = 0, 50 do 
+                                    gettoken(CFrame.new(77, 177, -167).Position) 
+                                end 
+                                enableall() 
+                                api.tween(2, fieldpos) 
                                 temptable.started.mondo = false
                             end
                         end
