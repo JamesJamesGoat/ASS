@@ -2343,7 +2343,6 @@ end)
 
 local mobkill = combtab:CreateSection("Combat")
 mobkill:CreateToggle("Train Crab", nil, function(State)
-    macrov2.toggles.traincrab = State
     if State then
         api.tween(3, CFrame.new(-307.52117919922, 107.91863250732, 467.86791992188))
     end
