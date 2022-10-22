@@ -2355,20 +2355,11 @@ end)
     --end
 --end)
 mobkill:CreateToggle("Train Snail", nil, function(State)
-    macrov2.toggles.trainsnail = State
     local fd = game.Workspace.FlowerZones["Stump Field"]
     if State then
-        api.tween(3, CFrame.new(
-            fd.Position.X,
-            fd.Position.Y - 20,
-            fd.Position.Z
-        ))
+        api.tween(3, CFrame.new(fd.Position.X, fd.Position.Y - 20, fd.Position.Z))
     else
-        api.tween(3, CFrame.new(
-            fd.Position.X,
-            fd.Position.Y + 2,
-            fd.Position.Z
-        ))
+        api.tween(3, CFrame.new(fd.Position.X, fd.Position.Y + 2, fd.Position.Z))
     end
 end)
 guiElements["toggles"]["killmondo"] = mobkill:CreateToggle("Kill Mondo", nil, function(State) macrov2.toggles.killmondo = State end)
