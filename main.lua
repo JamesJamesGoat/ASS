@@ -2825,7 +2825,7 @@ task.spawn(function()
 end)
 
 task.spawn(function()
-    while task.wait(5) do
+    while task.wait(23) do
         local buffs = fetchBuffTable(buffTable)
         for i, v in pairs(buffTable) do
             buffTable[i].b = macrov2.vars["autouse"..i]
