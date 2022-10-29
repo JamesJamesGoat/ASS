@@ -1467,25 +1467,24 @@ end
 
 getgenv().Tvk1 = {true, "💖"}
 
-local function donateToShrine(item, qnt)
+local function donateToShrine(item,qnt)
     print(qnt)
-    local s, e = pcall(function()
-        game:GetService("ReplicatedStorage").Events.WindShrineDonation:InvokeServer(item, qnt)
-        task.wait(0.5)
-        game.ReplicatedStorage.Events.WindShrineTrigger:FireServer()
-
-        local UsePlatform = game.Workspace.NPCs["Wind Shrine"].Stage
-        api.humanoidrootpart().CFrame = UsePlatform.CFrame + Vector3.new(0, 5, 0)
-
-        for i = 1, 120 do
-            task.wait(0.05)
-            for i, v in pairs(game.Workspace.Collectibles:GetChildren()) do
-                if (v.Position - UsePlatform.Position).magnitude < 60 and
-                    v.CFrame.YVector.Y == 1 then
-                    api.tween(3, CFrame.new(v.CFrame))
-                end
-            end
+    local s,e = pcall(function()
+    game:GetService("ReplicatedStorage").Events.WindShrineDonation:InvokeServer(item, qnt)
+    wait(0.5)
+    game.ReplicatedStorage.Events.WindShrineTrigger:FireServer()
+    
+    local UsePlatform = game:GetService("Workspace").NPCs["Wind Shrine"].Stage
+    game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = UsePlatform.CFrame + Vector3.new(0,5,0)
+    
+    for i = 1,120 do
+    wait(0.05)
+    for i,v in pairs(game.Workspace.Collectibles:GetChildren()) do
+        if (v.Position-UsePlatform.Position).magnitude < 60 and v.CFrame.YVector.Y == 1 then
+            game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame
         end
+    end
+    end
     end)
     if not s then print(e) end
 end
