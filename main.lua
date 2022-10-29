@@ -3289,7 +3289,6 @@ task.spawn(function()
                                 converthoney()
                             until gethiveballoon() == false or not macrov2.toggles.convertballoons
                         end
-                        equiptool(macrov2.vars.deftool)
                         temptable.converting = false
                         temptable.act = temptable.act + 1
                         task.wait(6)
@@ -3387,8 +3386,6 @@ task.spawn(function()
             local aw = false
             local awb = false -- some variable for autowindy, yk?
             disableall()
-            local oldmask = rtsg()["EquippedAccessories"]["Hat"]
-            maskequip("Demon Mask")
             while macrov2.toggles.killwindy and temptable.detected.windy do
                 if not aw then
                     for i, v in pairs(workspace.Monsters:GetChildren()) do
@@ -3449,7 +3446,6 @@ task.spawn(function()
                     task.wait()
                 end
             end
-            maskequip(oldmask)
             enableall()
             temptable.float = false
             temptable.started.windy = false
