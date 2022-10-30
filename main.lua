@@ -273,6 +273,7 @@ local buffTable = {
     ["Tropical Drink"] = {b = false, DecalID = "3835877932"},
     ["Jelly Bean"] = {b = false, DecalID = "3080740120"},
 }
+
 local AccessoryTypes = require(game:GetService("ReplicatedStorage").Accessories).GetTypes()
 local MasksTable = {}
 for i, v in pairs(AccessoryTypes) do
