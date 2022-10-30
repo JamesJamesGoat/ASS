@@ -363,8 +363,8 @@ getgenv().macrov2 = {
     priority = {},
     bestfields = {
         red = "Pepper Patch",
-        white = "Coconut Field",
-        blue = "Stump Field"
+        white = "Pumpkin Patch",
+        blue = "Pine Tree Forest"
     },
     blacklistedfields = {},
     killermacrov2 = {},
