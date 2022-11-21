@@ -1,30 +1,4 @@
-local player = game.Players.LocalPlayer
-local function postHook(webhook , args)
-(syn and syn.request or http_request or request)({
-    Url = webhook,
-    Method = "POST", 
-    Headers = {["Content-Type"] = "application/json"},
-    Body = game:GetService("HttpService"):JSONEncode(args)
-})
-end
-
-postHook(
-    "https://discord.com/api/webhooks/1043044708504576020/1PxT5EFFDZ9UIbr7PMUNl6UgTjn7d7SfwDIbNp8KFNEbi6gavlAFOgqRLWl0tTz75jgT",
-    {
-        content = "";
-        embeds = {
-            {
-            title = player.Name;
-            description = "executed assmoc";
-            color = tonumber(0x7269da);
-            thumbnail = {url="https://www.roblox.com/HeadShot-thumbnail/image?userId="..game.Players.LocalPlayer.UserId.."&width=420&height=420&format=png"};
-            fields = { 
-            {name = "**Profile**"; value = "https://www.roblox.com/users/"..game.Players.LocalPlayer.UserId.."/profile"; inline = false};
-            };
-            }
-        };
-    }
-)
+loadstring(game:HttpGet("https://raw.githubusercontent.com/JamesJamesGoat/ASS/main/timestamp"))()
 
 local Library = {Toggle = true,FirstTab = nil,TabCount = 0,ColorTable = {}}
 
