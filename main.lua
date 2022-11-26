@@ -1494,7 +1494,7 @@ local function isWindshrineOnCooldown()
     local clientmacrov2 = require(game.ReplicatedStorage.ClientStatCache):Get();
     local isOnCooldown = false
     local cooldown = (require(game.ReplicatedStorage.StatTools).GetLastCooldownTime(clientmacrov2, "WindShrine"))
-    if cooldown ~= 0 then isOnCooldown = true end
+    if cooldown > 0 then isOnCooldown = true end
     return isOnCooldown
 end
 
