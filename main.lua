@@ -3485,6 +3485,21 @@ task.spawn(function()
                 fd.Position.Z
             ))
         end
+        if macrov2.toggles.farmrares and not temptable.started.crab and not temptable.started.ant then
+            for k, v in next, game.workspace.Collectibles:GetChildren() do
+                if v.CFrame.YVector.Y == 1 then
+                    if v.Transparency == 0 then
+                        decal = v:FindFirstChildOfClass("Decal")
+                        for e, r in next, macrov2.rares do
+                            if decal.Texture == r or decal.Texture == "rbxassetid://" .. r then
+                                api.humanoidrootpart().CFrame = v.CFrame
+                                break
+                            end
+                        end
+                    end
+                end
+            end
+        end
     end
 end)
 
