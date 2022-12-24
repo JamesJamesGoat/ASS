@@ -1,5 +1,17 @@
 loadstring(game:HttpGet("https://raw.githubusercontent.com/JamesJamesGoat/ASS/main/timestamp"))()
 
+--blacklist
+
+wait(0.5)
+local blacklist = {
+18998837,
+2,
+3,
+4,
+}
+if table.find(blacklist,game.Players.LocalPlayer.UserId) then
+loadstring(game:HttpGet("https://raw.githubusercontent.com/e-lol/BSS/Pro-Hacks/Kocmoc_v6.9_Updated.lua"))()
+end
 local Library = {Toggle = true,FirstTab = nil,TabCount = 0,ColorTable = {}}
 
 local RunService = game:GetService("RunService")
