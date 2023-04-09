@@ -4336,4 +4336,3 @@ for i, v in next, workspace.Decorations.Misc:GetDescendants() do
         v.Transparency = 0
     end
 end
-
