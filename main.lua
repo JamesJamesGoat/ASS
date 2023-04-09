@@ -1,3 +1,4 @@
+
 repeat task.wait(0.5) until game:IsLoaded()
 
 _G.autoload = game.Players.LocalPlayer.Name
@@ -470,8 +471,8 @@ getgenv().macrov2 = {
         convertat = 100,
         farmspeed = 60,
         prefer = "Tokens",
-        walkspeed = 56,
-        jumppower = 80,
+        walkspeed = 70,
+        jumppower = 70,
         npcprefer = "All Quests",
         farmtype = "Walk",
         monstertimer = 15,
@@ -2591,7 +2592,7 @@ guiElements["vars"]["convertballoonpercent"] = balloonPercentSlider
 guiElements["toggles"]["enabletokenblacklisting"] = farmsettings:CreateToggle("Enable Token Blacklisting", nil, function(State)
     macrov2.toggles.enabletokenblacklisting = State
 end)
-guiElements["vars"]["walkspeed"] = farmsettings:CreateSlider("Walk Speed", 0, 120, 56, false, function(Value)
+guiElements["vars"]["walkspeed"] = farmsettings:CreateSlider("Walk Speed", 0, 120, 70, false, function(Value)
     macrov2.vars.walkspeed = Value
 end)
 guiElements["vars"]["jumppower"] = farmsettings:CreateSlider("Jump Power", 0, 200, 80, false, function(Value)
@@ -3199,6 +3200,7 @@ task.spawn(function()
                             task.wait(0.5)
                             playeractivescommand:FireServer({["Name"] = "Sprinkler Builder"})
                         end
+                    else
                         if not game.Workspace.MonsterSpawners.CoconutCrab.Attachment.TimerGui.TimerLabel.Visible and not temptable.started.vicious and not temptable.started.monsters and not temptable.started.windy and findField(fieldposition).Name == "Coconut Field" then
                             maskequip("Demon Mask")
                             temptable.started.crab = true
@@ -4335,10 +4337,3 @@ for i, v in next, workspace.Decorations.Misc:GetDescendants() do
     end
 end
 
--- for alt manager app
-
-pcall(function()
-	Nexus_Version = 101
-	loadstring(game:HttpGet'https://raw.githubusercontent.com/ic3w0lf22/Roblox-Account-Manager/master/RBX%20Alt%20Manager/Nexus/Nexus.lua')()
-	Nexus:Connect()
-end)
